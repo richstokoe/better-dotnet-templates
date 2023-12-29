@@ -1,6 +1,8 @@
 # Better .NET Templates
 Better Templates provides templates for .NET developers that are designed around good practices and patterns.
 
+[![.NET](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml)
+
 The default .NET templates often change in order to advertise new features of .NET rather than encouraging good development practices. Better Templates is designed to provide a set of stable templates that are ready for building long-lasting, well-architected applications that scale.
 
 ## MVC Feature Slices (mvcfeatures)
