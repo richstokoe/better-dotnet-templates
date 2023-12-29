@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Rich Stokoe",
+    "classifications": [ "Web", "Mvc", "Razor Pages" ],
+    "identity": "RichStokoe.BetterTemplates.MvcFeatureProject",
+    "name": "MVC with Feature Slices",
+    "shortName": "mvcfeatures",
+    "sourceName":"MvcFeatureApp",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }
