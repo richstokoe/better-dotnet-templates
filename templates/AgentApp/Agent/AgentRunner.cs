@@ -8,21 +8,24 @@ namespace AgentApp.Agent;
 /// Runs a multi-turn conversation loop with the agent.
 /// Inject additional services here as your agent grows (tools, memory, etc.).
 /// </summary>
-public class AgentRunner(IChatClient chatClient, ILogger<AgentRunner> logger)
+public class AgentRunner(
+    IChatClient chatClient,
+    ILogger<AgentRunner> logger,
+    ToolManager toolManager)
 {
-    private readonly AIAgent _agent = new ChatClientAgent(chatClient, new ChatClientAgentOptions
-    {
-        Name = "AgentApp",
-        Instructions = "You are a helpful assistant. Answer clearly and concisely."
-    });
+    private readonly AIAgent _agent = chatClient.AsAIAgent(
+        name: "AgentApp",
+        instructions: "You are a helpful assistant. Answer clearly and concisely.",
+        tools: toolManager.GetTools()
+    );
 
     public async Task RunAsync(CancellationToken cancellationToken = default)
     {
         // A thread keeps conversation history across multiple turns.
         // Create a new thread per session, or persist and reload one for continuity.
-        var thread = _agent.GetNewThread();
+        var session = await _agent.CreateSessionAsync();
 
-        Console.WriteLine("Agent ready. Type a message and press Enter. Leave blank to exit.");
+        Console.WriteLine("Type a message and press Enter. Leave blank to exit.");
         Console.WriteLine();
 
         while (!cancellationToken.IsCancellationRequested)
@@ -35,13 +38,19 @@ public class AgentRunner(IChatClient chatClient, ILogger<AgentRunner> logger)
 
             try
             {
-                var response = await _agent.RunAsync(input, thread, cancellationToken);
-                Console.WriteLine($"\nAgent: {response.Text}\n");
+                Console.WriteLine("Thinking...");
+                await foreach (var update in _agent.RunStreamingAsync(input, session))
+                {
+                    Console.Write(update.Text);
+                    Console.Out.Flush();
+                }
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error running agent turn");
-                Console.WriteLine($"\n[Error: {ex.Message}]\n");
+                var baseException = ex.GetBaseException().Message;
+                logger.LogError(baseException);
+                Console.WriteLine($"ERROR: {baseException}");
             }
         }
     }
