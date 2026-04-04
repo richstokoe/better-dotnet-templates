@@ -1,5 +1,6 @@
 using AgentApp.Agent;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Hosting;
 
 namespace AgentApp;
 
