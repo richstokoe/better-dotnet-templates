@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MvcFeatureApp.Models;
+using MvcFeatureApp.Shared;
 
 namespace MvcFeatureApp.Home;
 

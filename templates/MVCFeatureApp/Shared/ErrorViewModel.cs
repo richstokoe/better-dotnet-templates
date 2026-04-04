@@ -1,4 +1,4 @@
-namespace MvcFeatureApp.Models;
+namespace MvcFeatureApp.Shared;
 
 public class ErrorViewModel
 {
