@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Auto-generated solution files (produced by dotnet pack/build at repo root)
+*.sln
+
 # User-specific files
 *.rsuser
 *.suo

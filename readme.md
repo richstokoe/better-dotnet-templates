@@ -127,3 +127,9 @@ To test locally after building:
 ```
 ./reinstalltemplate.sh
 ```
+
+---
+
+## License
+
+[MIT](LICENSE) — provided as-is, without warranty of any kind. See the [LICENSE](LICENSE) file for the full terms.
