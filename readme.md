@@ -1,8 +1,9 @@
 # Better .NET Templates
+Better Templates provides templates for .NET developers that are designed around good practices and patterns.
 
-Better Templates provides `dotnet new` project templates designed around good architectural practices — the kind that hold up as projects grow, rather than the kind that make screenshots look clean.
+[![.NET](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml)
 
-The default .NET templates are revised frequently to showcase new runtime features, which often means reinforcing anti-patterns (technology-centric folder layouts, an ever-expanding `Program.cs`, mixed concerns). Better Templates aims to provide a stable starting point that guides you toward structures worth keeping.
+The default .NET templates are revised frequently to showcase new runtime features, which often means reinforcing anti-patterns (technology-centric folder layouts, an ever-expanding `Program.cs`, mixed concerns). Better Templates aims to provide a set of stable templates that help you build long-lasting, well-architected applications that scale.
 
 ## Installation
 
@@ -20,13 +21,9 @@ dotnet new install <path-to-nupkg>
 
 ## MVC with Feature Slices (`btmvc`)
 
-**What's wrong with the default MVC template?**
+The standard `dotnet new mvc` template organises code by technology layer: a `Controllers/` folder, a `Models/` folder, a `Views/` folder. This feels tidy at first, but as an application grows it becomes a navigation burden. Adding a new "Checkout" feature means touching three separate top-level folders. The folders become ever-expanding dumping grounds rather than meaningful boundaries.
 
-The standard `dotnet new mvc` template organises code by technology layer: a `Controllers/` folder, a `Models/` folder, a `Views/` folder. This feels tidy at first, but as an application grows it becomes a navigation burden. Adding a new "Checkout" feature means touching three separate top-level folders. The folders become dumping grounds rather than meaningful boundaries.
-
-**How this template is different**
-
-Code is organised by feature. Each feature gets its own folder containing everything it owns:
+With the "btmvc" template, code is organised by feature. Each feature gets its own folder containing everything it owns:
 
 ```
 MyApp/
@@ -60,7 +57,7 @@ The Razor view engine is configured to look for views in `/{Feature}/Views/{Acti
 
 ```
 dotnet new btmvc -n MyApp
-dotnet new btmvc -n MyApp --Framework net8.0
+dotnet new btmvc -n MyApp --framework net8.0
 ```
 
 Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
@@ -69,17 +66,13 @@ Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
 
 ## React + TypeScript SPA with MVC Back End (`bthybrid`)
 
-**The problem with the default React template**
+Microsoft have mostly abandoned their SPA templates. The original `dotnet new react` template used a development proxy and `UseProxyToSpaDevelopmentServer`, which added configuration complexity and a fragile dev-time dependency. More fundamentally, it didn't give you a clear model for how the front and back ends would relate in production.
 
-The original `dotnet new react` template used a development proxy and `UseProxyToSpaDevelopmentServer`, which added configuration complexity and a fragile dev-time dependency. More fundamentally, it didn't give you a clear model for how the front and back ends would relate in production.
-
-**How this template is different**
-
-This template produces a single deployable .NET application that serves a Vite-built React front end as static files from `wwwroot/`, alongside an MVC back end for server-side concerns (authentication flows, API endpoints, error pages, server-rendered fallbacks).
+The BetterTemplates template produces a single deployable .NET application that serves a Vite-built React front end as static files from `wwwroot/`, alongside an MVC back end for server-side concerns (authentication flows, API endpoints, error pages, server-rendered fallbacks).
 
 The React app lives in `ClientApp/` and is built with Vite. `vite.config.ts` outputs directly into `wwwroot/` so there are no separate deployment artefacts to coordinate. `MapFallbackToFile("index.html")` means the React router handles all client-side routes, while MVC controllers intercept any routes explicitly registered (e.g. `/login`, `/error`).
 
-The MVC side uses the same feature-slice layout as `btmvc`:
+The MVC back end uses the same feature-slice layout as `btmvc`:
 
 ```
 MyApp/
