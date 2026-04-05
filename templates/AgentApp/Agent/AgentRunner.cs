@@ -1,6 +1,7 @@
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
+using RichStokoe.AgentTools;
 
 namespace AgentApp.Agent;
 

@@ -35,6 +35,7 @@ public static class SetupServices
         .AsIChatClient();
 
         builder.Services.AddSingleton(chatClient);
+        builder.Services.AddSingleton<RichStokoe.AgentTools.ToolManager>();
         builder.Services.AddScoped<Agent.AgentRunner>();
 
         return builder.Build();
