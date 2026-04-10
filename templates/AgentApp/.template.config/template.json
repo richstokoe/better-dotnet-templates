@@ -4,7 +4,7 @@
     "classifications": [ "Console", "AI", "Agent" ],
     "identity": "RichStokoe.BetterTemplates.AgentProject",
     "name": "Agent Console App (Microsoft Agent Framework)",
-    "shortName": "btagent",
+    "shortName": "better-agent",
     "sourceName": "AgentApp",
     "tags": {
       "language": "C#",

@@ -4,7 +4,7 @@
     "classifications": [ "Web", "Mvc", "Razor Pages" ],
     "identity": "RichStokoe.BetterTemplates.HybridReactSpaWithMVCBackEndProject",
     "name": "React TypeScript front end with MVC back end with Feature Slices",
-    "shortName": "bthybrid",
+    "shortName": "better-hybrid",
     "sourceName":"HybridReactSpaWithMVCBackEnd",
     "tags": {
       "language": "C#",

@@ -9,4 +9,4 @@ dotnet new uninstall RichStokoe.BetterTemplates
 rm *.sln
 dotnet pack -c Release
 
-dotnet new install ${PWD}/bin/Release/RichStokoe.BetterTemplates.1.0.0.nupkg
+dotnet new install ${PWD}/bin/Release/RichStokoe.BetterTemplates.1.1.1.nupkg

@@ -4,7 +4,7 @@
     "classifications": [ "Web", "Mvc", "Razor Pages" ],
     "identity": "RichStokoe.BetterTemplates.MvcFeatureProject",
     "name": "MVC with Feature Slices",
-    "shortName": "btmvc",
+    "shortName": "better-mvc",
     "sourceName":"MvcFeatureApp",
     "tags": {
       "language": "C#",
