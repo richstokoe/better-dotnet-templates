@@ -33,4 +33,10 @@
     <Exec Command="npm run build" WorkingDirectory="$(SpaRoot)" />
   </Target>
 
+  <!-- Build the React app as part of dotnet build -->
+  <Target Name="DebugBuildSpa" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Exec Command="npm install" WorkingDirectory="$(SpaRoot)" />
+    <Exec Command="npm run build" WorkingDirectory="$(SpaRoot)" />
+  </Target>
+
 </Project>
