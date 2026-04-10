@@ -9,8 +9,9 @@ namespace RichStokoe.AgentTools.Utils
 {
     public class MathTools
     {
+        [AgentTool]
         [Description("Adds a sequence of decimal numbers together, returning the sum.")]
-        internal static decimal Add_Numbers(IEnumerable<decimal> numbers)
+        public static decimal Add_Numbers(IEnumerable<decimal> numbers)
         => numbers.Sum();
     }
 }

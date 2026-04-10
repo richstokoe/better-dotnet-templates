@@ -27,7 +27,26 @@ public class AgentRunner(IChatClient chatClient, ToolManager toolManager)
 }
 ```
 
-`ToolManager` returns a collection of tools which are automatically via reflection — any `public static` method with a `[Description]` attribute in the `RichStokoe.AgentTools` namespace is registered as an `AIFunction`.
+`ToolManager` discovers tools at runtime by scanning all assemblies loaded into the current `AssemblyLoadContext`. Any `public static` method decorated with `[AgentTool]` (and `[Description]`) is registered as an `AIFunction`.
+
+### Filtering tools
+
+`GetTools` accepts optional filters so you can pass only a relevant subset to an agent:
+
+```csharp
+// All tools whose name contains "Weather" (case-insensitive)
+toolManager.GetTools(namePattern: "*Weather*")
+
+// All read-only tools
+toolManager.GetTools(typeFilter: AgentToolTypes.Read)
+
+// Read tools whose name starts with "Get"
+toolManager.GetTools(namePattern: "Get_*", typeFilter: AgentToolTypes.Read)
+```
+
+`namePattern` supports `*` (any sequence of characters) and `?` (any single character) wildcards. The pattern is matched against the tool's `Name` if one was set on the attribute, otherwise against the method name.
+
+`typeFilter` is a flags mask — pass `AgentToolTypes.Read | AgentToolTypes.Write` to include all classified tools. Tools marked `AgentToolTypes.None` (unclassified) are only returned when no type filter is specified.
 
 ---
 
@@ -114,15 +133,15 @@ Reads and searches RSS/Atom feeds. Supports both arbitrary feed URLs and a set o
 
 ## Adding Your Own Tools
 
-Create a `public static` class anywhere in the `RichStokoe.AgentTools` namespace (or a sub-namespace). Annotate each tool method with `[Description]` — `ToolManager` will pick it up automatically at runtime.
+Decorate any `public static` method with `[AgentTool]` and `[Description]`. The method can live in any assembly that is loaded by the application — `ToolManager` scans all of them.
 
 ```csharp
 using System.ComponentModel;
-
-namespace RichStokoe.AgentTools.Utils;
+using RichStokoe.AgentTools;
 
 public static class MyTools
 {
+    [AgentTool(Type = AgentToolTypes.Read)]
     [Description("Returns a friendly greeting for the given name.")]
     public static string Greet(
         [Description("The name to greet.")] string name)
@@ -130,7 +149,14 @@ public static class MyTools
 }
 ```
 
-No registration required — just add the method and restart.
+`[AgentTool]` has two optional properties:
+
+| Property | Type | Description |
+|---|---|---|
+| `Name` | `string?` | Override the tool name exposed to the model. Defaults to the method name. |
+| `Type` | `AgentToolTypes` | Classify the tool as `Read`, `Write`, or `Read \| Write`. Defaults to `None`. |
+
+No registration required — just ensure the assembly is loaded and restart.
 
 ---
 

@@ -8,12 +8,14 @@ namespace RichStokoe.AgentTools.Utils
 {
     public static class DateTimeTools
     {
+        [AgentTool]
         [Description("Get the current time where the user is. Don't cache the output of this tool, come back each time to get the latest time")]
-        internal static string Get_Current_Time()
+        public static string Get_Current_Time()
         => DateTime.Now.ToLongTimeString();
 
+        [AgentTool]
         [Description("Get the current date where the user is. Don't cache the output of this tool, come back each time to get the latest date")]
-        internal static string Get_Current_Date()
+        public static string Get_Current_Date()
         => DateTime.Now.ToLongDateString();
     }
 }

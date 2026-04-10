@@ -7,6 +7,7 @@ public static class LocationTools
 {
     private static readonly HttpClient _httpClient = new();
 
+    [AgentTool]
     [Description("Gets the geographic location from an IP address. Returns city, region, country, and coordinates.")]
     public static async Task<string> Get_Location_From_Ip_Address(
         [Description("The IP address to look up. You can use the Get)Public_Ip_Address tool to get the curent user's public IP first.")] string ipAddress)

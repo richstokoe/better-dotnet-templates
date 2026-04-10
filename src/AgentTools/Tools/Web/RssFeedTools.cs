@@ -15,6 +15,7 @@ public static class RssFeedTools
         _httpClient.Timeout = TimeSpan.FromSeconds(30);
     }
 
+    [AgentTool]
     [Description("Reads articles from an RSS or Atom feed. Returns the latest articles with titles, descriptions, and links.")]
     public static async Task<string> Read_Rss_Feed(
         [Description("The URL of the RSS or Atom feed to read.")] string feedUrl,
@@ -88,6 +89,7 @@ public static class RssFeedTools
         }
     }
 
+    [AgentTool]
     [Description("Gets the latest news from popular sources. Supported sources: bbc, cnn, reuters, techcrunch, hackernews, guardian, nytimes, reddit.")]
     public static async Task<string> Get_Latest_News(
         [Description("The news source to fetch from (e.g., 'bbc', 'hackernews', 'techcrunch').")] string source,
@@ -102,6 +104,7 @@ public static class RssFeedTools
         return await Read_Rss_Feed(feedInfo.Url, maxArticles);
     }
 
+    [AgentTool]
     [Description("Search for RSS feeds related to a topic. Returns a list of potential RSS feed URLs.")]
     public static async Task<string> Find_Rss_Feeds(
         [Description("The topic or website to find RSS feeds for.")] string query)

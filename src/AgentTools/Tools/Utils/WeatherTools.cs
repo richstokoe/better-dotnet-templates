@@ -7,6 +7,7 @@ public static class WeatherTools
 {
     private static readonly HttpClient _httpClient = new();
 
+    [AgentTool]
     [Description("Get the current weather for a given location. Returns temperature, conditions, humidity, and wind information.")]
     public static async Task<string> Get_Current_Weather_For_Location(
         [Description("The location to get weather for. Can be a city name (e.g., 'London') or 'latitude,longitude' coordinates.")] string location)

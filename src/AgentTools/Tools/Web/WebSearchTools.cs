@@ -13,6 +13,7 @@ public static class WebSearchTools
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "RichStokoe.AgentTools/1.0");
     }
 
+    [AgentTool]
     [Description("Search the web for information. Returns relevant search results including titles, URLs, and snippets.")]
     public static async Task<string> Search_Web(
         [Description("The search query to find information about.")] string query,
@@ -56,6 +57,7 @@ public static class WebSearchTools
         }
     }
 
+    [AgentTool]
     [Description("Get a quick answer or summary for a factual question using DuckDuckGo's Instant Answer API.")]
     public static async Task<string> Get_Instant_Answer(
         [Description("The question or topic to get an instant answer for.")] string query)
