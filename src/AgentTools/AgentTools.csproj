@@ -7,7 +7,7 @@
 
     <!-- NuGet package identity -->
     <PackageId>RichStokoe.AgentTools</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Rich Stokoe</Authors>
     <Description>A collection of ready-made tools for use with Microsoft Agent Framework (MAF) agents, including web search, RSS feeds, weather, date/time, math, and network utilities.</Description>
     <PackageTags>ai;agents;maf;microsoft-agent-framework;tools</PackageTags>
