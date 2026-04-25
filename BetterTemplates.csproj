@@ -15,6 +15,9 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <!-- Suppresses the warning during installation relating to no exact match for netstandard2.0 -->
+    <NoWarn>NU5128</NoWarn> 
   </PropertyGroup>
   
   <ItemGroup>

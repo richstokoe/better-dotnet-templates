@@ -4,9 +4,11 @@
 
 dotnet new uninstall RichStokoe.BetterTemplates
 
-### Builds and re-packs the nuget 
+### Builds and re-packs the nuget
 
-rm *.sln
+PACKAGE_VERSION=$(grep '<PackageVersion>' BetterTemplates.csproj | tr -d ' ' | sed 's/<PackageVersion>//;s/<\/PackageVersion>//')
+rm -f *.sln
+rm -f "bin/Release/RichStokoe.BetterTemplates.${PACKAGE_VERSION}.nupkg"
 dotnet pack -c Release
 
-dotnet new install ${PWD}/bin/Release/RichStokoe.BetterTemplates.2.0.0.nupkg
+dotnet new install ${PWD}/bin/Release/RichStokoe.BetterTemplates.${PACKAGE_VERSION}.nupkg
