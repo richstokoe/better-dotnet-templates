@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MvcFeatureApp;
+namespace BetterMVC;
 
 public static class SetupServices
 {

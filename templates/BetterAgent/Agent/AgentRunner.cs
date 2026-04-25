@@ -3,7 +3,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 using RichStokoe.AgentTools;
 
-namespace AgentApp.Agent;
+namespace BetterAgent.Agent;
 
 /// <summary>
 /// Runs a multi-turn conversation loop with the agent.
@@ -15,7 +15,7 @@ public class AgentRunner(
     ToolManager toolManager)
 {
     private readonly AIAgent _agent = chatClient.AsAIAgent(
-        name: "AgentApp",
+        name: "BetterAgent",
         instructions: "You are a helpful assistant. Answer clearly and concisely.",
         tools: toolManager.GetTools()
     );

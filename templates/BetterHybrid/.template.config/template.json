@@ -2,10 +2,10 @@
     "$schema": "http://json.schemastore.org/template",
     "author": "Rich Stokoe",
     "classifications": [ "Web", "Mvc", "Razor Pages" ],
-    "identity": "RichStokoe.BetterTemplates.HybridReactSpaWithMVCBackEndProject",
+    "identity": "RichStokoe.BetterTemplates.BetterHybridProject",
     "name": "React TypeScript front end with MVC back end with Feature Slices",
     "shortName": "better-hybrid",
-    "sourceName":"HybridReactSpaWithMVCBackEnd",
+    "sourceName":"BetterHybrid",
     "tags": {
       "language": "C#",
       "type": "project"

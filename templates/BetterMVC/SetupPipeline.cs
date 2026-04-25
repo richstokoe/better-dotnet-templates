@@ -1,4 +1,4 @@
-namespace MvcFeatureApp;
+namespace BetterMVC;
 
 internal static class SetupPipeline
 {

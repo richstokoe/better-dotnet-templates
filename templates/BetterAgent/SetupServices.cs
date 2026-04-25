@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenAI;
 
-namespace AgentApp;
+namespace BetterAgent;
 
 public static class SetupServices
 {

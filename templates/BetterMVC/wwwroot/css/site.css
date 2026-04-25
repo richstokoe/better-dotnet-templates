@@ -37,3 +37,9 @@ body p.logo img {
   margin-right: .5rem;
   vertical-align: bottom;
 }
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

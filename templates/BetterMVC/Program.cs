@@ -1,4 +1,4 @@
-namespace MvcFeatureApp;
+namespace BetterMVC;
 
 public class Program
 {

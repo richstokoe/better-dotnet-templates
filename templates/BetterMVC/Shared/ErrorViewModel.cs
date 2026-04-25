@@ -1,4 +1,4 @@
-namespace MvcFeatureApp.Shared;
+namespace BetterMVC.Shared;
 
 public class ErrorViewModel
 {

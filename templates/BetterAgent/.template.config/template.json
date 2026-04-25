@@ -5,7 +5,7 @@
     "identity": "RichStokoe.BetterTemplates.AgentProject",
     "name": "Agent Console App (Microsoft Agent Framework)",
     "shortName": "better-agent",
-    "sourceName": "AgentApp",
+    "sourceName": "BetterAgent",
     "tags": {
       "language": "C#",
       "type": "project"

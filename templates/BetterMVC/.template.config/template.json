@@ -5,7 +5,7 @@
     "identity": "RichStokoe.BetterTemplates.MvcFeatureProject",
     "name": "MVC with Feature Slices",
     "shortName": "better-mvc",
-    "sourceName":"MvcFeatureApp",
+    "sourceName":"BetterMVC",
     "tags": {
       "language": "C#",
       "type": "project"
