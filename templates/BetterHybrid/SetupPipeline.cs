@@ -1,4 +1,4 @@
-namespace HybridReactSpaWithMVCBackEnd;
+namespace BetterHybrid;
 
 internal static class SetupPipeline
 {

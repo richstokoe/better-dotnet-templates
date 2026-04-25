@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using HybridReactSpaWithMVCBackEnd.Shared;
+using BetterHybrid.Shared;
 
-namespace HybridReactSpaWithMVCBackEnd.Home;
+namespace BetterHybrid.Home;
 
 public class HomeController : Controller
 {

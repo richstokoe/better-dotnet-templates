@@ -1,4 +1,4 @@
-namespace HybridReactSpaWithMVCBackEnd.Shared;
+namespace BetterHybrid.Shared;
 
 public class ErrorViewModel
 {

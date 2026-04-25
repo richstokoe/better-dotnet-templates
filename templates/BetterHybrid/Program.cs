@@ -1,4 +1,4 @@
-namespace HybridReactSpaWithMVCBackEnd;
+namespace BetterHybrid;
 
 public class Program
 {

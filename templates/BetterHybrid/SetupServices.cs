@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HybridReactSpaWithMVCBackEnd;
+namespace BetterHybrid;
 
 public static class SetupServices
 {
