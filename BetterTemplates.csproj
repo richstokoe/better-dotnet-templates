@@ -6,7 +6,7 @@
     <PackageId>RichStokoe.BetterTemplates</PackageId>
     <Title>RichStokoe Better Templates for Dotnet</Title>
     <Authors>Rich Stokoe</Authors>
-    <Description>Templates that have better design principles than the default Microsoft ones.</Description>
+    <Description>.NET templates that provide better structure for long-term maintainability, additional features and/or missing functionality than the default templates.</Description>
     <PackageTags>dotnet-new;templates;richstokoe</PackageTags>
     <TargetFramework>netstandard2.0</TargetFramework>
 

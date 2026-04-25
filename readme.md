@@ -107,6 +107,37 @@ Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
 
 ---
 
+## AI Agent Console App (`better-agent`)
+
+The `better-agent` template produces a ready-to-run AI agent console application built on the [Microsoft Agent Framework](https://github.com/microsoft/Agents-for-dotnet) and `Microsoft.Extensions.AI`. It comes pre-wired with DI, `appsettings.json` configuration, and a multi-turn streaming conversation loop so you can start adding your own tools and logic immediately.
+
+```
+MyAgent/
+├── Agent/
+│   └── AgentRunner.cs      # Multi-turn conversation loop (streaming)
+├── SetupServices.cs        # DI registration — wire up your IChatClient here
+├── Program.cs
+├── appsettings.json        # Placeholder config for Azure OpenAI / OpenAI keys
+└── appsettings.Development.json
+```
+
+`AgentRunner` manages the session (conversation history) and runs a `while` loop reading from `Console`, calling the agent with streaming output, and handling errors. It is registered as a scoped DI service so you can inject additional dependencies — memory, vector stores, external APIs — as your agent grows.
+
+`SetupServices.cs` contains commented-out examples for Azure OpenAI, OpenAI, and LM Studio so you can uncomment the provider you want and drop in credentials without hunting through documentation. The default out-of-the-box configuration targets a local LM Studio instance so the template runs without any API keys.
+
+Tool use is handled by `RichStokoe.AgentTools`, which discovers tool methods across all loaded assemblies via `[AgentTool]` attributes and registers them with the agent automatically.
+
+**Usage**
+
+```
+dotnet new better-agent -n MyAgent
+dotnet new better-agent -n MyAgent --framework net8.0
+```
+
+Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
+
+---
+
 ## Contributing
 
 Templates are under `templates/`. The package is built with:
