@@ -2,6 +2,8 @@
 Better Templates provides templates for .NET developers that are designed around good practices and patterns.
 
 [![.NET](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/richstokoe/better-dotnet-templates/actions/workflows/dotnet.yml)
+[![NuGet Version](https://img.shields.io/nuget/v/RichStokoe.BetterTemplates)](https://www.nuget.org/packages/RichStokoe.BetterTemplates)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/RichStokoe.BetterTemplates)](https://www.nuget.org/packages/RichStokoe.BetterTemplates)
 
 The default .NET templates are revised frequently to showcase new runtime features, which often means reinforcing anti-patterns (technology-centric folder layouts, an ever-expanding `Program.cs`, mixed concerns). Better Templates aims to provide a set of stable templates that help you build long-lasting, well-architected applications that scale.
 

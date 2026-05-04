@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>2.0.0</PackageVersion>
+    <PackageVersion>2.0.1</PackageVersion>
     <PackageId>RichStokoe.BetterTemplates</PackageId>
     <Title>RichStokoe Better Templates for Dotnet</Title>
     <Authors>Rich Stokoe</Authors>
