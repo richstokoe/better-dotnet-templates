@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.4.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
     <PackageReference Include="OpenAI" Version="2.10.0" />
-    <PackageReference Include="RichStokoe.AgentTools" Version="1.0.0" />
+    <PackageReference Include="RichStokoe.AgentTools" Version="1.1.1" />
   </ItemGroup>
 
 </Project>
