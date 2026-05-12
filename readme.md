@@ -1,3 +1,5 @@
+**Note: AgentTools have moved to their own repository: [https://github.com/richstokoe/AgentTools](https://github.com/richstokoe/AgentTools)**
+
 # Better .NET Templates
 Better Templates provides templates for .NET developers that are designed around good practices and patterns.
 
