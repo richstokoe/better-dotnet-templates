@@ -6,10 +6,12 @@ TEST_DIR="$(mktemp -d /tmp/better-dotnet-templates-test-XXXXX)"
 FAILURES=0
 MVC_PID=""
 HYBRID_PID=""
+WEBAGENT_PID=""
 
 cleanup() {
-    [ -n "$MVC_PID" ]    && kill "$MVC_PID"    2>/dev/null && wait "$MVC_PID"    2>/dev/null || true
-    [ -n "$HYBRID_PID" ] && kill "$HYBRID_PID" 2>/dev/null && wait "$HYBRID_PID" 2>/dev/null || true
+    [ -n "$MVC_PID" ]      && kill "$MVC_PID"      2>/dev/null && wait "$MVC_PID"      2>/dev/null || true
+    [ -n "$HYBRID_PID" ]   && kill "$HYBRID_PID"   2>/dev/null && wait "$HYBRID_PID"   2>/dev/null || true
+    [ -n "$WEBAGENT_PID" ] && kill "$WEBAGENT_PID" 2>/dev/null && wait "$WEBAGENT_PID" 2>/dev/null || true
     rm -rf "$TEST_DIR"
 }
 trap cleanup EXIT
@@ -111,6 +113,38 @@ fi
 kill "$HYBRID_PID" 2>/dev/null || true
 wait "$HYBRID_PID" 2>/dev/null || true
 HYBRID_PID=""
+
+# ── Step 5: better-webagent ──────────────────────────────────────────────────
+echo ""
+echo "==> Testing better-webagent..."
+cd "$TEST_DIR" && mkdir better-webagent && cd better-webagent
+dotnet new better-webagent -n TestWebAgentApp -o TestWebAgentApp
+cd TestWebAgentApp
+if dotnet build; then
+    pass "better-webagent: dotnet build (includes npm install + vite build)"
+else
+    fail "better-webagent: dotnet build"
+fi
+
+WEBAGENT_PORT=5302
+ASPNETCORE_URLS="http://localhost:$WEBAGENT_PORT" dotnet run --no-build --no-launch-profile &
+WEBAGENT_PID=$!
+
+echo "  Waiting for better-webagent to start on port $WEBAGENT_PORT..."
+if wait_for_url "http://localhost:$WEBAGENT_PORT/"; then
+    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$WEBAGENT_PORT/")
+    if [ "$HTTP_STATUS" = "200" ]; then
+        pass "better-webagent: GET / returns 200 (SPA index.html)"
+    else
+        fail "better-webagent: GET / returned $HTTP_STATUS (expected 200)"
+    fi
+else
+    fail "better-webagent: app did not start within 30 seconds"
+fi
+
+kill "$WEBAGENT_PID" 2>/dev/null || true
+wait "$WEBAGENT_PID" 2>/dev/null || true
+WEBAGENT_PID=""
 
 # ── Summary ──────────────────────────────────────────────────────────────────
 echo ""

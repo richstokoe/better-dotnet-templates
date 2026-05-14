@@ -140,6 +140,89 @@ Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
 
 ---
 
+## Web Agent App (`better-webagent`)
+
+A web-based conversational AI agent similar to `better-agent` but with a real-time React + TypeScript frontend. Intuitive UI with persistent conversation sidebar, streaming responses, slash commands, an inline "thinking" view, and automatic promotion of long-running tasks to a separate Agents tab — with results posted back into the originating chat when complete.
+
+Include tools out of the box from [RichStokoe.AgentTools](https://github.com/richstokoe/AgentTools):
+
+![Chat with tool use](docs/images/tool-use-weather.png)
+
+```
+MyWebAgent/
+├── Chats/                  # Conversation feature slice
+│   ├── ChatHub.cs          # SignalR hub — clients connect to /hubs/chat
+│   ├── ChatSession.cs      # Domain model
+│   ├── ChatMessage.cs      # Domain model
+│   ├── IChatRepository.cs  # Storage abstraction — swap for SQLite/Postgres/etc.
+│   └── InMemoryChatRepository.cs
+├── Agents/                 # Long-running task feature slice
+│   ├── AgentHub.cs         # SignalR hub — clients connect to /hubs/agents
+│   ├── AgentTask.cs        # Domain model
+│   ├── AgentTaskRunner.cs  # Background task orchestrator
+│   ├── IAgentTaskRepository.cs
+│   ├── InMemoryAgentTaskRepository.cs
+│   ├── WebAgent.cs         # IChatClient wrapper with COT system prompt
+│   └── WebAgentFactory.cs  # Classification + title generation
+├── SlashCommands/          # Extensible slash command registry
+│   ├── ISlashCommand.cs
+│   ├── SlashCommandRegistry.cs
+│   ├── ClearCommand.cs     # /clear — wipe the current conversation
+│   ├── NewCommand.cs       # /new   — start a new conversation
+│   └── HelpCommand.cs      # /help  — list all registered commands
+├── ClientApp/              # React + TypeScript SPA (Vite, Tailwind v4, shadcn/ui)
+│   └── src/
+│       ├── hooks/          # useChatHub, useAgentHub
+│       ├── components/     # Sidebar, Chat, AgentsPage, ThinkingBlock, ui/*
+│       ├── lib/utils.ts
+│       ├── App.tsx
+│       └── main.tsx
+├── SetupServices.cs        # DI for hubs, repositories, IChatClient, slash commands
+├── SetupPipeline.cs        # Maps /hubs/chat and /hubs/agents
+└── Program.cs
+```
+
+**Key concepts**
+
+- **Two SignalR hubs.** `ChatHub` handles conversations and streams response tokens. `AgentHub` handles long-running tasks. Both push updates to clients in real time over WebSockets.
+- **Chain of thought.** The system prompt asks the model to wrap reasoning in `<think>...</think>` tags. The frontend detects these during streaming and renders them as a collapsible block above the answer. Works with any model — no provider-specific thinking-token API required.
+- **Markdown + syntax-highlighted code** in every response, via `react-markdown` + `remark-gfm` + `rehype-highlight`.
+- **Slash commands.** Implement `ISlashCommand`, register in `SetupServices.cs`. The template ships with `/clear`, `/new`, and `/help`.
+- **Auto-generated titles.** A new conversation gets a provisional title (the first 60 chars of the user's message) immediately, then a concise LLM-generated title swaps in via `ChatUpdated` once the background call resolves.
+- **Repository pattern.** `IChatRepository` and `IAgentTaskRepository` abstract storage. The defaults are in-memory `ConcurrentDictionary` implementations (state lost on restart). Swap the DI registration for an EF Core / Dapper / Marten / etc. implementation when you need persistence — no other code needs to change.
+- **Fully anonymous.** No auth, no per-user scoping. Conversation history is server-wide.
+
+**Long-running tasks — automatic promotion to the Agents tab**
+
+Every user message is first run through a tiny LLM classification call that decides whether this is a quick chat (`direct`) or a complex, long-running task (`agentic`). Agentic prompts are promoted into a background `AgentTask` so the chat UI stays responsive — the user gets an immediate acknowledgement in the conversation:
+
+![Long-running task started](docs/images/long-running-tasks.png)
+
+The task itself runs on the server with its own SignalR hub feeding the Agents tab. The tab shows live status (Pending / Running / Completed / Failed / Cancelled), the originating prompt, and lets the user stop, delete, or jump back to the originating chat:
+
+![Agents tab — task running](docs/images/long-running-tasks-list-in-progress.png)
+
+The Agents list shows when the task is complete. You can jump back into the conversation you triggered the long running task from or delete the task (doesn't delete the response in the conversation).
+
+![Agents tab — task complete](docs/images/long-running-tasks-list-complete.png)
+
+When the task completes, its output is posted back into the originating chat as a regular agent message, fully markdown-rendered:
+
+![Markdown response from completed task](docs/images/long-running-task-response-markdown.png)
+
+**Usage**
+
+```
+dotnet new better-webagent -n MyWebAgent
+dotnet new better-webagent -n MyWebAgent --framework net8.0
+```
+
+Supported frameworks: `net8.0`, `net9.0`, `net10.0` (default).
+
+**Prerequisites**: Node.js **20+** (Tailwind v4 native bindings require it). The default LLM provider in `SetupServices.cs` points at a local LM Studio instance so the template runs out of the box with no API keys — switch to Azure OpenAI or OpenAI using the commented-out blocks in the same file.
+
+---
+
 ## Contributing
 
 Templates are under `templates/`. The package is built with:
